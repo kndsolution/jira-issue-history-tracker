@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Edit </title>
+    <meta name="decorator" content="atl.admin">
+</head>
+<body class="page-type-admin">
+<div class="content-container">
+
+    <div class="content-body">
+        <h1>Edit</h1>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
