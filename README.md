@@ -1,8 +1,8 @@
 
 ## 개발 환경 설정
 
- os : linux (ubuntu 20.04)  or window 
-- jdk 11
+- os : linux (ubuntu 20.04)  or window 
+- jdk 1
 - jira 9.12.x
 
 ## Install jdk 
@@ -22,7 +22,7 @@ echo $JAVA_HOME
 atlas-mvn -v 
 ```
 
-Source clone & build
+## Source clone & build
  - 소스를 가져온다 
 ```bash
  git clone https://github.com/catmasterlim/jira-plugin-base.git
