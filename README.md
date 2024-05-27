@@ -2,8 +2,8 @@
 ## 개발 환경 설정
 
 - os : linux (ubuntu 20.04)  or window 
-- jdk 1
-- jira 9.12.x
+- jdk : 11
+- jira : 9.12.x
 
 ## Install jdk 
 - 공식 문서에서는 jdk 8을 권장하나 jdk 11을 설치 [ JDK 설치 가이드 ](https://confluence.atlassian.com/adminjiraserver/installing-java-938846828.html)
