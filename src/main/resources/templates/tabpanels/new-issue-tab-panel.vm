@@ -1,0 +1,34 @@
+<div class="mod-header">
+    <h3>$i18n.getText('new-issue-tab-panel.label')</h3>
+    <hr/>
+
+        <table class="aui">
+            <thead>
+                <tr>
+                    <th id="item-id">item Id</th>
+                    <th id="group-id">Group Id</th>
+                    <th id="updated-date">Updated Date</th>
+                    <th id="updated-user">Updated User</th>
+                    <th id="element">Field</th>
+                    <th id="before">Before</th>
+                    <th id="after">After</th>
+                </tr>
+            </thead>
+            <tbody>
+                #foreach ($changeHistory in $changeHistories)
+                    #set($historyItems = $changeHistory.getChangeItems())
+                    #foreach ($historyItem in $historyItems)
+                    <tr>
+                        <td headers="item-id">$historyItem.get("id")</td>
+                        <td headers="group-id">$historyItem.get("group")</td>
+                        <td headers="updated-date">$changeHistory.getTimePerformed()</td>
+                        <td headers="updated-user">$renderer.render($getUserWiki.getUserWikiRender($changeHistory.getAuthorKey()), null)</td>
+                        <td headers="updated-field">$historyItem.get("field")</td>
+                        <td headers="before" value=$!historyItem.get("oldvalue") >$!historyItem.get("oldstring")</td>
+                        <td headers="after" value=$!historyItem.get("newvalue")>$!historyItem.get("newstring")</td>
+                    </tr>
+                    #end
+                #end
+            </tbody>
+        </table>
+</div>
