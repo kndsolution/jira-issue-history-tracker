@@ -1,7 +1,6 @@
 <div class="mod-header">
     <h3>$i18n.getText('new-issue-tab-panel.label')</h3>
-    <hr/>
-
+    $comment
         <table class="aui">
             <thead>
                 <tr>
@@ -31,4 +30,26 @@
                 #end
             </tbody>
         </table>
+        #*<table class="aui">
+                    <thead>
+                        <tr>
+                            <th id="item-id">item Id</th>
+                            <th id="updated-date">Updated Date</th>
+                            <th id="updated-user">Updated User</th>
+                            <th id="element">Field</th>
+                            <th id="before">Before</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #foreach ($comment in $comments)
+                        <tr>
+                            <td headers="item-id">$comment.getId()</td>
+                            <td headers="updated-date">$comment.getUpdated()</td>
+                            <td headers="updated-user">$renderer.render($getUserWiki.getUserWikiRender($comment.getUpdateAuthorApplicationUser().getKey()), null)</td>
+                            <td headers="updated-field">comment</td>
+                            <td headers="before">$!comment.getBody()</td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>*#
 </div>

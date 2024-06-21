@@ -2,6 +2,8 @@ package dev.jira.jira.tabpanels;
 import com.atlassian.jira.issue.changehistory.ChangeHistory;
 import com.atlassian.jira.issue.changehistory.ChangeHistoryItem;
 import com.atlassian.jira.issue.changehistory.ChangeHistoryManager;
+import com.atlassian.jira.issue.comments.Comment;
+import com.atlassian.jira.issue.comments.CommentManager;
 import com.atlassian.jira.user.util.UserManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +44,8 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
     private final ChangeHistoryManager changeHistoryManager;
     @JiraImport
     private final UserManager userManager;
+    @JiraImport
+    private final CommentManager commentManager;
 
     public NewIssueTabPanel(VelocityManager velocityManager
             , VelocityParamFactory velocityParamFactory
@@ -50,6 +54,7 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
             , RendererManager rendererManager
             , ChangeHistoryManager changeHistoryManager
             ,UserManager userManager
+            ,CommentManager commentManager
     ){
         this.velocityManager = velocityManager;
         this.velocityParamFactory = velocityParamFactory;
@@ -58,6 +63,7 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
         this.rendererManager = rendererManager;
         this.changeHistoryManager = changeHistoryManager;
         this.userManager = userManager;
+        this.commentManager = commentManager;
     }
     public List getActions(Issue issue, ApplicationUser remoteUser) {
         String webworkEncoding = this.applicationProperties.getString("webwork.i18n.encoding");
@@ -65,21 +71,15 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
         context.put("i18n", this.jiraAuthenticationContext.getI18nHelper());
         JiraRendererPlugin renderer = rendererManager.getRendererForType("atlassian-wiki-renderer");
         List<ChangeHistory> changeHistories = changeHistoryManager.getChangeHistories(issue);
-        for (ChangeHistory changeHistory:changeHistories) {
-            List<org.ofbiz.core.entity.GenericValue> historyItems = changeHistory.getChangeItems();
-            int item1 = historyItems.size();
-            //Object test = item1.get("newstring");
-            context.put("item1", item1);
-        }
-
-
-        Object test = changeHistories.get(0).getChangeItems().get(0);
+        //List<Comment> comments = commentManager.getCommentsForUser(issue, remoteUser);
+        String comment = changeHistories.get(0).getAuthorDisplayName();
         GetUserWiki getUserWiki = new GetUserWiki(userManager);
         context.put("changeHistoryManager", changeHistoryManager);
         context.put("getUserWiki", getUserWiki);
-
         context.put("changeHistories",changeHistories);
         context.put("renderer",renderer);
+        context.put("comment", comment);
+        //context.put("comments",comments);
 
 
         String renderedText = this.velocityManager.getEncodedBody("templates/tabpanels/", "new-issue-tab-panel.vm", webworkEncoding, context);
