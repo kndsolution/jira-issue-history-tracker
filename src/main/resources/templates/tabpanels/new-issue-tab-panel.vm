@@ -1,55 +1,35 @@
+<script>
+$webResourceManager.requireResource("com.atlassian.auiplugin:aui-table-sortable")
+</script>
+
 <div class="mod-header">
-    <h3>$i18n.getText('new-issue-tab-panel.label')</h3>
-    $comment
-        <table class="aui">
-            <thead>
+    <table class="aui aui-table-sortable">
+        <thead>
+            <tr>
+                <th id="item-id">item Id</th>
+                <th id="group-id">Group Id</th>
+                <th id="updated-date">Updated Date</th>
+                <th  class="aui-table-column-unsortable" id="updated-user">Updated User</th>
+                <th  class="aui-table-column-unsortable" id="element">Field</th>
+                <th  class="aui-table-column-unsortable" id="before">Before</th>
+                <th  class="aui-table-column-unsortable" id="after">After</th>
+            </tr>
+        </thead>
+        <tbody>
+            #foreach ($changeHistory in $changeHistories)
+                #set($historyItems = $changeHistory.getChangeItems())
+                #foreach ($historyItem in $historyItems)
                 <tr>
-                    <th id="item-id">item Id</th>
-                    <th id="group-id">Group Id</th>
-                    <th id="updated-date">Updated Date</th>
-                    <th id="updated-user">Updated User</th>
-                    <th id="element">Field</th>
-                    <th id="before">Before</th>
-                    <th id="after">After</th>
+                    <td headers="item-id">$historyItem.get("id")</td>
+                    <td headers="group-id">$historyItem.get("group")</td>
+                    <td headers="updated-date"><time datetime="$getUserWiki.convertDate($changeHistory.getTimePerformed())">$getUserWiki.convertDate($changeHistory.getTimePerformed())</td>
+                    <td headers="updated-user">$renderer.render($getUserWiki.getUserWikiRender($changeHistory.getAuthorKey()), null)</td>
+                    <td headers="updated-field">$historyItem.get("field")</td>
+                    <td headers="before" value=$!historyItem.get("oldvalue") >$!historyItem.get("oldstring")</td>
+                    <td headers="after" value=$!historyItem.get("newvalue")>$!historyItem.get("newstring")</td>
                 </tr>
-            </thead>
-            <tbody>
-                #foreach ($changeHistory in $changeHistories)
-                    #set($historyItems = $changeHistory.getChangeItems())
-                    #foreach ($historyItem in $historyItems)
-                    <tr>
-                        <td headers="item-id">$historyItem.get("id")</td>
-                        <td headers="group-id">$historyItem.get("group")</td>
-                        <td headers="updated-date">$changeHistory.getTimePerformed()</td>
-                        <td headers="updated-user">$renderer.render($getUserWiki.getUserWikiRender($changeHistory.getAuthorKey()), null)</td>
-                        <td headers="updated-field">$historyItem.get("field")</td>
-                        <td headers="before" value=$!historyItem.get("oldvalue") >$!historyItem.get("oldstring")</td>
-                        <td headers="after" value=$!historyItem.get("newvalue")>$!historyItem.get("newstring")</td>
-                    </tr>
-                    #end
                 #end
-            </tbody>
-        </table>
-        #*<table class="aui">
-                    <thead>
-                        <tr>
-                            <th id="item-id">item Id</th>
-                            <th id="updated-date">Updated Date</th>
-                            <th id="updated-user">Updated User</th>
-                            <th id="element">Field</th>
-                            <th id="before">Before</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        #foreach ($comment in $comments)
-                        <tr>
-                            <td headers="item-id">$comment.getId()</td>
-                            <td headers="updated-date">$comment.getUpdated()</td>
-                            <td headers="updated-user">$renderer.render($getUserWiki.getUserWikiRender($comment.getUpdateAuthorApplicationUser().getKey()), null)</td>
-                            <td headers="updated-field">comment</td>
-                            <td headers="before">$!comment.getBody()</td>
-                        </tr>
-                        #end
-                    </tbody>
-                </table>*#
+            #end
+        </tbody>
+    </table>
 </div>

@@ -71,15 +71,11 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
         context.put("i18n", this.jiraAuthenticationContext.getI18nHelper());
         JiraRendererPlugin renderer = rendererManager.getRendererForType("atlassian-wiki-renderer");
         List<ChangeHistory> changeHistories = changeHistoryManager.getChangeHistories(issue);
-        //List<Comment> comments = commentManager.getCommentsForUser(issue, remoteUser);
-        String comment = changeHistories.get(0).getAuthorDisplayName();
         GetUserWiki getUserWiki = new GetUserWiki(userManager);
         context.put("changeHistoryManager", changeHistoryManager);
         context.put("getUserWiki", getUserWiki);
         context.put("changeHistories",changeHistories);
         context.put("renderer",renderer);
-        context.put("comment", comment);
-        //context.put("comments",comments);
 
 
         String renderedText = this.velocityManager.getEncodedBody("templates/tabpanels/", "new-issue-tab-panel.vm", webworkEncoding, context);

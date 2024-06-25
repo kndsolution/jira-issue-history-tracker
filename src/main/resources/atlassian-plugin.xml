@@ -13,7 +13,7 @@
   <resource type="i18n" name="i18n" location="react-base"/>  
   <!-- add our web resources -->  
   <web-resource key="react-base-resources" name="react-base Web Resources"> 
-    <dependency>com.atlassian.auiplugin:ajs</dependency>  
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="react-base.css" location="/css/react-base.css"/>  
     <resource type="download" name="react-base.js" location="/js/react-base.js"/>  
     <resource type="download" name="images/" location="/images"/>  
@@ -47,7 +47,9 @@
     <order>1000</order>
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <dependency>com.atlassian.auiplugin:aui-table</dependency>
-    <resource type="velocity" name="view" location="templates/tabpanels/new-issue-tab-panel.vm"/> 
+    <supports-ajax-load>true</supports-ajax-load>
+    <!--<dependency>com.atlassian.auiplugin:aui-table-sortable</dependency>-->
+    <resource type="velocity" name="view" location="templates/tabpanels/new-issue-tab-panel.vm"/>
   </issue-tabpanel>
 
 </atlassian-plugin>
