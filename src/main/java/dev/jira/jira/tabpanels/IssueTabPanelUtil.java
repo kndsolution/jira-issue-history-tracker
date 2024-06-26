@@ -2,7 +2,6 @@ package dev.jira.jira.tabpanels;
 
 import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.jira.user.util.UserManager;
-import com.atlassian.plugin.spring.scanner.annotation.imports.JiraImport;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -10,12 +9,12 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class GetUserWiki {
+public class IssueTabPanelUtil {
 
 
     private final UserManager userManager;
 
-    public GetUserWiki(UserManager userManager
+    public IssueTabPanelUtil(UserManager userManager
     ){
         this.userManager = userManager;
     }
@@ -28,7 +27,7 @@ public class GetUserWiki {
         }
 
         String userName = user.getName();
-        userName = "[~" +userName+ "]";
+
         return userName;
     }
 

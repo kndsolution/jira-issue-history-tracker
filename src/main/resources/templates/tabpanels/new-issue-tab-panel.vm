@@ -1,9 +1,22 @@
-<script>
-$webResourceManager.requireResource("com.atlassian.auiplugin:aui-table-sortable")
-</script>
 
 <div class="mod-header">
-    <table class="aui aui-table-sortable">
+    <form class="aui">
+        <aui-label for="async-product-single-select">Choose your product asynchronously (you need to type to initiate a search):</aui-label>
+        <p>
+            <aui-select
+                        id="issue-tab-panel-user-selector"
+                        name="product"
+                        placeholder="Select a product"
+                        src="products"
+                        value="type to trigger async"
+            >
+            #foreach ($user in $this.findUsers(''))
+                <aui-option value="$user.getKey()">$issueTabPanelUtil.getUserWikiRender($user.getKey())</aui-option>
+            #end
+            </aui-select>
+        </p>
+    </form>
+    <table class="aui aui-table-sortable" id="issue-tab-panel-result-table">
         <thead>
             <tr>
                 <th id="item-id">item Id</th>
@@ -22,8 +35,8 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-table-sortable"
                 <tr>
                     <td headers="item-id">$historyItem.get("id")</td>
                     <td headers="group-id">$historyItem.get("group")</td>
-                    <td headers="updated-date"><time datetime="$getUserWiki.convertDate($changeHistory.getTimePerformed())">$getUserWiki.convertDate($changeHistory.getTimePerformed())</td>
-                    <td headers="updated-user">$renderer.render($getUserWiki.getUserWikiRender($changeHistory.getAuthorKey()), null)</td>
+                    <td headers="updated-date"><time datetime="$issueTabPanelUtil.convertDate($changeHistory.getTimePerformed())">$issueTabPanelUtil.convertDate($changeHistory.getTimePerformed())</td>
+                    <td headers="updated-user" value="$changeHistory.getAuthorKey()">$renderer.render("[~$issueTabPanelUtil.getUserWikiRender($changeHistory.getAuthorKey())]", null)</td>
                     <td headers="updated-field">$historyItem.get("field")</td>
                     <td headers="before" value=$!historyItem.get("oldvalue") >$!historyItem.get("oldstring")</td>
                     <td headers="after" value=$!historyItem.get("newvalue")>$!historyItem.get("newstring")</td>
@@ -33,3 +46,26 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-table-sortable"
         </tbody>
     </table>
 </div>
+
+<script>
+AJS.tablessortable.setTableSortable(AJS.$(".aui-table-sortable"));
+
+AJS.$('#issue-tab-panel-user-selector').on('change',function(e){
+    let selectedUser = e.target.value;
+    for( let user of AJS.$('#issue-tab-panel-result-table > tbody > tr > td[headers="updated-user"]')) {
+     //console.log(user);
+        console.log('selectedUser', selectedUser);
+        console.log('user.value', user.getAttribute('value'));
+        let trUser = AJS.$(user);
+        if(selectedUser == user.getAttribute('value')){
+            trUser.parent().show();
+
+        }
+        else{
+            trUser.parent().hide();
+
+        }
+    }
+});
+
+</script>
