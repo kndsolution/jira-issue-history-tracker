@@ -1,7 +1,11 @@
 package dev.jira.jira.tabpanels;
 import com.atlassian.jira.bc.user.search.UserSearchParams;
+import com.atlassian.jira.issue.CustomFieldManager;
 import com.atlassian.jira.issue.changehistory.ChangeHistory;
 import com.atlassian.jira.issue.changehistory.ChangeHistoryManager;
+import com.atlassian.jira.issue.fields.CustomField;
+import com.atlassian.jira.issue.fields.FieldManager;
+import com.atlassian.jira.issue.fields.SearchableField;
 import com.atlassian.jira.user.util.UserManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +19,8 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.JiraImport;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import com.atlassian.velocity.VelocityManager;
 import com.atlassian.jira.config.properties.ApplicationProperties;
 import com.atlassian.jira.issue.RendererManager;
@@ -40,6 +46,8 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
     private final UserManager userManager;
     @JiraImport
     private final UserSearchService userSearchService;
+    @JiraImport
+    private final FieldManager fieldManager;
 
 
     public NewIssueTabPanel(VelocityManager velocityManager
@@ -50,6 +58,7 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
             , ChangeHistoryManager changeHistoryManager
             , UserManager userManager
             , UserSearchService userSearchService
+            , FieldManager fieldManager
     ){
         this.velocityManager = velocityManager;
         this.velocityParamFactory = velocityParamFactory;
@@ -59,6 +68,7 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
         this.changeHistoryManager = changeHistoryManager;
         this.userManager = userManager;
         this.userSearchService = userSearchService;
+        this.fieldManager = fieldManager;
     }
     public List getActions(Issue issue, ApplicationUser remoteUser) {
         String webworkEncoding = this.applicationProperties.getString("webwork.i18n.encoding");
@@ -87,6 +97,11 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
         UserSearchParams userSearchParams = new UserSearchParams.Builder().allowEmptyQuery(true).includeActive(true).includeInactive(true).limitResults(10).build();
         List<ApplicationUser> userList = userSearchService.findUsers("", userSearchParams);
         return  userList;
+    }
+
+    public Set<SearchableField> findFields(){
+        Set<SearchableField> fieldList = this.fieldManager.getAllSearchableFields();
+        return  fieldList;
     }
 
 

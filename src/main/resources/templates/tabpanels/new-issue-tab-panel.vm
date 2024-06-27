@@ -1,8 +1,8 @@
 
 <div class="mod-header">
     <form class="aui">
-        <aui-label for="async-product-single-select">Choose your product asynchronously (you need to type to initiate a search):</aui-label>
         <p>
+            <aui-label for="async-product-single-select">Search User:</aui-label>
             <aui-select
                         id="issue-tab-panel-user-selector"
                         name="product"
@@ -14,13 +14,28 @@
                 <aui-option value="$user.getKey()">$issueTabPanelUtil.getUserWikiRender($user.getKey())</aui-option>
             #end
             </aui-select>
+            <aui-label for="async-product-single-select">Search Field:</aui-label>
+            <aui-select
+                        id="issue-tab-panel-field-selector"
+                        name="product"
+                        placeholder="Select a product"
+                        src="products"
+                        value="type to trigger async"
+            >
+            #foreach ($field in $this.findFields())
+                <aui-option value="$field.getName()">$field.getName()</aui-option>
+            #end
+            </aui-select>
         </p>
     </form>
+    <form class="aui">
+            <p>
+
+            </p>
+        </form>
     <table class="aui aui-table-sortable" id="issue-tab-panel-result-table">
         <thead>
             <tr>
-                <th id="item-id">item Id</th>
-                <th id="group-id">Group Id</th>
                 <th id="updated-date">Updated Date</th>
                 <th  class="aui-table-column-unsortable" id="updated-user">Updated User</th>
                 <th  class="aui-table-column-unsortable" id="element">Field</th>
@@ -33,11 +48,9 @@
                 #set($historyItems = $changeHistory.getChangeItems())
                 #foreach ($historyItem in $historyItems)
                 <tr>
-                    <td headers="item-id">$historyItem.get("id")</td>
-                    <td headers="group-id">$historyItem.get("group")</td>
                     <td headers="updated-date"><time datetime="$issueTabPanelUtil.convertDate($changeHistory.getTimePerformed())">$issueTabPanelUtil.convertDate($changeHistory.getTimePerformed())</td>
                     <td headers="updated-user" value="$changeHistory.getAuthorKey()">$renderer.render("[~$issueTabPanelUtil.getUserWikiRender($changeHistory.getAuthorKey())]", null)</td>
-                    <td headers="updated-field">$historyItem.get("field")</td>
+                    <td headers="updated-field" value="$historyItem.get("field")">$historyItem.get("field")</td>
                     <td headers="before" value=$!historyItem.get("oldvalue") >$!historyItem.get("oldstring")</td>
                     <td headers="after" value=$!historyItem.get("newvalue")>$!historyItem.get("newstring")</td>
                 </tr>
@@ -53,19 +66,30 @@ AJS.tablessortable.setTableSortable(AJS.$(".aui-table-sortable"));
 AJS.$('#issue-tab-panel-user-selector').on('change',function(e){
     let selectedUser = e.target.value;
     for( let user of AJS.$('#issue-tab-panel-result-table > tbody > tr > td[headers="updated-user"]')) {
-     //console.log(user);
-        console.log('selectedUser', selectedUser);
-        console.log('user.value', user.getAttribute('value'));
         let trUser = AJS.$(user);
         if(selectedUser == user.getAttribute('value')){
             trUser.parent().show();
-
         }
         else{
             trUser.parent().hide();
-
         }
     }
 });
 
+AJS.$('#issue-tab-panel-field-selector').on('change',function(e){
+    let selectedField = e.target.value;
+    for( let field of AJS.$('#issue-tab-panel-result-table > tbody > tr > td[headers="updated-field"]')) {
+        let trField = AJS.$(field);
+        if(selectedField.toLowerCase() == field.getAttribute('value').toLowerCase()){
+            trField.parent().show();
+            console.log("Show search field : ", selectedField);
+            console.log("Show field : ", field.getAttribute('value'));
+        }
+        else{
+            trField.parent().hide();
+            console.log("Hide search field : ", selectedField);
+            console.log("Hide field : ", field.getAttribute('value'));
+        }
+    }
+});
 </script>
