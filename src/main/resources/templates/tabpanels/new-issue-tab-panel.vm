@@ -1,20 +1,19 @@
 
 <div class="mod-header">
     <form class="aui">
-        <p>
-            <aui-label for="async-product-single-select">Search User:</aui-label>
-            <aui-select
+            <label for="issue-tab-panel-user-selector">Search User:</label>
+            <select
                         id="issue-tab-panel-user-selector"
                         name="product"
                         placeholder="Select a product"
                         src="products"
                         value="type to trigger async"
-            >
+            multiple>
             #foreach ($user in $this.findUsers(''))
-                <aui-option value="$user.getKey()">$issueTabPanelUtil.getUserWikiRender($user.getKey())</aui-option>
+                <option value="$user.getKey()">$issueTabPanelUtil.getUserWikiRender($user.getKey())</option>
             #end
-            </aui-select>
-            <aui-label for="async-product-single-select">Search Field:</aui-label>
+            </select>
+            <aui-label for="issue-tab-panel-field-selector">Search Field:</aui-label>
             <aui-select
                         id="issue-tab-panel-field-selector"
                         name="product"
@@ -26,13 +25,7 @@
                 <aui-option value="$field.getName()">$field.getName()</aui-option>
             #end
             </aui-select>
-        </p>
     </form>
-    <form class="aui">
-            <p>
-
-            </p>
-        </form>
     <table class="aui aui-table-sortable" id="issue-tab-panel-result-table">
         <thead>
             <tr>
@@ -62,7 +55,7 @@
 
 <script>
 AJS.tablessortable.setTableSortable(AJS.$(".aui-table-sortable"));
-
+AJS.$("#issue-tab-panel-user-selector").auiSelect2();
 AJS.$('#issue-tab-panel-user-selector').on('change',function(e){
     let selectedUser = e.target.value;
     for( let user of AJS.$('#issue-tab-panel-result-table > tbody > tr > td[headers="updated-user"]')) {
