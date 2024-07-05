@@ -59,11 +59,11 @@
 <!--    <supports-ajax-load>true</supports-ajax-load>-->
 <!--&lt;!&ndash;    <resource type="velocity" name="view" location="templates/tabpanels/new-issue-tab-panel.vm"/>&ndash;&gt;-->
 <!--  </issue-tabpanel>-->
-  <issue-tabpanel key="custom-issue-tabpanel" name="Custom Tab Panel"
+  <issue-tabpanel key="issue-history-tracker" name="Issue History Tracker"
                   class="dev.jira.jira.tabpanels.PaginatedIssueTabCustom">
 
     <description>Show a custom panel.</description>
-    <label>Custom panel</label>
+    <label>Issue History Tracker</label>
     <supports-ajax-load>true</supports-ajax-load>
 
     <show-newer-expander-label>Load newer custom events</show-newer-expander-label>

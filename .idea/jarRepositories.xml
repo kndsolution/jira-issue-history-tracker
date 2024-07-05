@@ -14,6 +14,11 @@
     <remote-repository>
       <option name="id" value="atlassian-plugin-sdk" />
       <option name="name" value="atlassian-plugin-sdk" />
+      <option name="url" value="file://${env.ATLAS_HOME}/repository" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="atlassian-plugin-sdk" />
+      <option name="name" value="atlassian-plugin-sdk" />
       <option name="url" value="file://C:\Applications\Atlassian\atlassian-plugin-sdk-8.2.7/repository" />
     </remote-repository>
     <remote-repository>
