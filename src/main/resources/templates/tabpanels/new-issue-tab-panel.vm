@@ -1,8 +1,9 @@
 
 <div class="mod-header">
     <form class="aui">
-            <label for="issue-tab-panel-user-selector">Search User:</label>
+            <aui-label for="issue-tab-panel-user-selector">Search User:</aui-label>
             <select
+                        style="width:100px;height:22px;"
                         id="issue-tab-panel-user-selector"
                         name="product"
                         placeholder="Select a product"
@@ -13,13 +14,16 @@
                 <option value="$user.getKey()">$issueTabPanelUtil.getUserWikiRender($user.getKey())</option>
             #end
             </select>
+            </br>
             <aui-label for="issue-tab-panel-field-selector">Search Field:</aui-label>
             <aui-select
+                        style="width:100px;height:22px;"
                         id="issue-tab-panel-field-selector"
                         name="product"
                         placeholder="Select a product"
                         src="products"
                         value="type to trigger async"
+                        size="10"
             >
             #foreach ($field in $this.findFields())
                 <aui-option value="$field.getName()">$field.getName()</aui-option>
@@ -53,14 +57,19 @@
     </table>
 </div>
 
-<script>
+<script type="text/javascript">
 AJS.tablessortable.setTableSortable(AJS.$(".aui-table-sortable"));
+console.log("tablessortable >>>>>>>>>>>>>>>>>>>>");
 AJS.$("#issue-tab-panel-user-selector").auiSelect2();
+console.log("auiSelect2 >>>>>>>>>>>>>>>>>>>>");
+let selectedUserList = [];
 AJS.$('#issue-tab-panel-user-selector').on('change',function(e){
-    let selectedUser = e.target.value;
+    let selectedUsers = e.target.value;
+    selectedUserList.push(selectedUsers);
+    console.log("selectedUserList >>>>>>>>>>>>>>>>>>>>", selectedUserList);
     for( let user of AJS.$('#issue-tab-panel-result-table > tbody > tr > td[headers="updated-user"]')) {
         let trUser = AJS.$(user);
-        if(selectedUser == user.getAttribute('value')){
+        if(selectedUsers == user.getAttribute('value')){
             trUser.parent().show();
         }
         else{
@@ -85,4 +94,5 @@ AJS.$('#issue-tab-panel-field-selector').on('change',function(e){
         }
     }
 });
+
 </script>

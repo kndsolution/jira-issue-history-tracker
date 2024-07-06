@@ -74,6 +74,10 @@
   <web-resource key="myPluginViewIssue" name="MyPlugin's JS">
     <context>jira.view.issue</context>
     <dependency>jira.webresources:viewissue</dependency>
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <dependency>com.atlassian.auiplugin:aui-table-sortable</dependency>
+    <dependency>com.atlassian.auiplugin:aui-select</dependency>
+    <dependency>com.atlassian.auiplugin:aui-select2</dependency>
     <resource type="download" name="issue-history-tracker.js" location="js/issue-history-tracker.js"/>
   </web-resource>
 </atlassian-plugin>
