@@ -2,11 +2,10 @@
 <div class="mod-header">
     <form class="aui">
             <aui-label for="issue-tab-panel-user-selector">Search User:</aui-label>
-            <select
+            <select size="3"
                         style="width:100px;height:22px;"
                         id="issue-tab-panel-user-selector"
                         name="product"
-                        placeholder="Select a product"
                         src="products"
                         value="type to trigger async"
             multiple>
@@ -14,21 +13,22 @@
                 <option value="$user.getKey()">$issueTabPanelUtil.getUserWikiRender($user.getKey())</option>
             #end
             </select>
-            </br>
+            <br />
             <aui-label for="issue-tab-panel-field-selector">Search Field:</aui-label>
-            <aui-select
+            <aui-select size="3"
                         style="width:100px;height:22px;"
                         id="issue-tab-panel-field-selector"
                         name="product"
-                        placeholder="Select a product"
                         src="products"
                         value="type to trigger async"
-                        size="10"
             >
             #foreach ($field in $this.findFields())
                 <aui-option value="$field.getName()">$field.getName()</aui-option>
             #end
             </aui-select>
+            <button class="aui-button" name="reset-button" id="reset-button">Reset</button>
+            <br />
+            <hr />
     </form>
     <table class="aui aui-table-sortable" id="issue-tab-panel-result-table">
         <thead>
@@ -95,4 +95,7 @@ AJS.$('#issue-tab-panel-field-selector').on('change',function(e){
     }
 });
 
+AJS.$(""#reset-button").on('click', function() {
+    AJS.$("#issue-tab-panel-result-table").reset();
+});
 </script>
