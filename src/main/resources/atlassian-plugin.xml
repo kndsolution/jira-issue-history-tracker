@@ -19,15 +19,15 @@
     <resource type="download" name="images/" location="/images"/>  
     <context>react-base</context> 
   </web-resource>
-  <!--<web-resource key="test-resources" name="react-base Web Resources">
+  <web-resource key="test-resources" name="react-base Web Resources">
     <resource type="download" name="react-base.css" location="/css/react-base.css"/>
-    <resource type="download" name="react-base.js" location="/js/react-base.js"/>
+<!--    <resource type="download" name="issue-history-tracker.js" location="js/issue-history-tracker.js"/>-->
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <dependency>com.atlassian.auiplugin:aui-table-sortable</dependency>
     <dependency>com.atlassian.auiplugin:aui-select</dependency>
     <dependency>com.atlassian.auiplugin:aui-select2</dependency>
-    <context>atl.general</context>
-  </web-resource>-->
+<!--    <context>atl.general</context>-->
+  </web-resource>
   <web-section name="myadmin_config_section" i18n-name-key="myadmin_config_section.name" key="myadmin_config_section" location="admin_plugins_menu" weight="1000"> 
     <description key="myadmin_config_section.description">The myadmin_config_section Plugin</description>  
     <label key="myadmin_config_section.label"/> 
@@ -78,7 +78,6 @@
     <dependency>com.atlassian.auiplugin:aui-table-sortable</dependency>
     <dependency>com.atlassian.auiplugin:aui-select</dependency>
     <dependency>com.atlassian.auiplugin:aui-select2</dependency>
-    <dependency>com.atlassian.auiplugin:aui-button</dependency>
     <resource type="download" name="issue-history-tracker.js" location="js/issue-history-tracker.js"/>
   </web-resource>
 </atlassian-plugin>

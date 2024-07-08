@@ -1,9 +1,8 @@
 
 <div class="mod-header">
     <form class="aui">
-            <aui-label for="issue-tab-panel-user-selector">Search User:</aui-label>
-            <select size="3"
-                        style="width:100px;height:22px;"
+             <aui-label for="issue-tab-panel-user-selector">Search User:</aui-label>
+            <select
                         id="issue-tab-panel-user-selector"
                         name="product"
                         src="products"
@@ -15,7 +14,7 @@
             </select>
             <br />
             <aui-label for="issue-tab-panel-field-selector">Search Field:</aui-label>
-            <aui-select size="3"
+            <aui-select
                         style="width:100px;height:22px;"
                         id="issue-tab-panel-field-selector"
                         name="product"
@@ -26,7 +25,7 @@
                 <aui-option value="$field.getName()">$field.getName()</aui-option>
             #end
             </aui-select>
-            <button class="aui-button" name="reset-button" id="reset-button">Reset</button>
+            <a class="aui-button"  id="reset-button">Reset</a>
             <br />
             <hr />
     </form>
@@ -58,44 +57,5 @@
 </div>
 
 <script type="text/javascript">
-AJS.tablessortable.setTableSortable(AJS.$(".aui-table-sortable"));
-console.log("tablessortable >>>>>>>>>>>>>>>>>>>>");
-AJS.$("#issue-tab-panel-user-selector").auiSelect2();
-console.log("auiSelect2 >>>>>>>>>>>>>>>>>>>>");
-let selectedUserList = [];
-AJS.$('#issue-tab-panel-user-selector').on('change',function(e){
-    let selectedUsers = e.target.value;
-    selectedUserList.push(selectedUsers);
-    console.log("selectedUserList >>>>>>>>>>>>>>>>>>>>", selectedUserList);
-    for( let user of AJS.$('#issue-tab-panel-result-table > tbody > tr > td[headers="updated-user"]')) {
-        let trUser = AJS.$(user);
-        if(selectedUsers == user.getAttribute('value')){
-            trUser.parent().show();
-        }
-        else{
-            trUser.parent().hide();
-        }
-    }
-});
 
-AJS.$('#issue-tab-panel-field-selector').on('change',function(e){
-    let selectedField = e.target.value;
-    for( let field of AJS.$('#issue-tab-panel-result-table > tbody > tr > td[headers="updated-field"]')) {
-        let trField = AJS.$(field);
-        if(selectedField.toLowerCase() == field.getAttribute('value').toLowerCase()){
-            trField.parent().show();
-            console.log("Show search field : ", selectedField);
-            console.log("Show field : ", field.getAttribute('value'));
-        }
-        else{
-            trField.parent().hide();
-            console.log("Hide search field : ", selectedField);
-            console.log("Hide field : ", field.getAttribute('value'));
-        }
-    }
-});
-
-AJS.$(""#reset-button").on('click', function() {
-    AJS.$("#issue-tab-panel-result-table").reset();
-});
 </script>

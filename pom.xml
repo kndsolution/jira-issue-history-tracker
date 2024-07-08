@@ -3,14 +3,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>dev.jira</groupId>
-    <artifactId>react-base</artifactId>
+    <artifactId>issue-history-tracker</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <organization>
         <name>Example Company</name>
         <url>http://www.example.com/</url>
     </organization>
-    <name>react-base</name>
-    <description>This is the dev.jira:react-base plugin for Atlassian JIRA.</description>
+    <name>Issue-History-Tracker</name>
+    <description>This is the dev.jira:Issue-History-Tracker plugin for Atlassian JIRA.</description>
     <packaging>atlassian-plugin</packaging>
     <dependencies>
         <dependency>
