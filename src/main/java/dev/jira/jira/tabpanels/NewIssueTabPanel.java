@@ -1,4 +1,5 @@
 package dev.jira.jira.tabpanels;
+import com.atlassian.jira.avatar.AvatarService;
 import com.atlassian.jira.bc.user.search.UserSearchParams;
 import com.atlassian.jira.issue.CustomFieldManager;
 import com.atlassian.jira.issue.changehistory.ChangeHistory;
@@ -48,7 +49,8 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
     private final UserSearchService userSearchService;
     @JiraImport
     private final FieldManager fieldManager;
-
+    @JiraImport
+    private final AvatarService avatarService;
 
     public NewIssueTabPanel(VelocityManager velocityManager
             , VelocityParamFactory velocityParamFactory
@@ -59,6 +61,7 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
             , UserManager userManager
             , UserSearchService userSearchService
             , FieldManager fieldManager
+            , AvatarService avatarService
     ){
         this.velocityManager = velocityManager;
         this.velocityParamFactory = velocityParamFactory;
@@ -69,6 +72,7 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
         this.userManager = userManager;
         this.userSearchService = userSearchService;
         this.fieldManager = fieldManager;
+        this.avatarService = avatarService;
     }
     public List getActions(Issue issue, ApplicationUser remoteUser) {
         String webworkEncoding = this.applicationProperties.getString("webwork.i18n.encoding");
@@ -76,7 +80,7 @@ public class NewIssueTabPanel extends AbstractIssueTabPanel
         context.put("i18n", this.jiraAuthenticationContext.getI18nHelper());
         JiraRendererPlugin renderer = rendererManager.getRendererForType("atlassian-wiki-renderer");
         List<ChangeHistory> changeHistories = changeHistoryManager.getChangeHistories(issue);
-        IssueTabPanelUtil issueTabPanelUtil = new IssueTabPanelUtil(userManager);
+        IssueTabPanelUtil issueTabPanelUtil = new IssueTabPanelUtil(userManager, avatarService);
 
 
         context.put("changeHistoryManager", changeHistoryManager);

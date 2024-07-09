@@ -9,7 +9,11 @@ WRMRequire('wr!com.atlassian.jira.jira-frontend-plugin:entrypoint-activityTabs')
 JIRA.ViewIssueTabs.onTabReady(function() {
     loadHistoryTracker();
 })
-// > td[headers="updated-user"]
+
+function format (){
+    return
+}
+
 function filterChange(){
     let selectedUsers = AJS.$('#issue-tab-panel-user-selector').val();
     let selectedField = AJS.$('#issue-tab-panel-field-selector').val();
@@ -19,7 +23,7 @@ function filterChange(){
         let trUser = row.find('td[headers="updated-user"]');
         let trField = row.find('td[headers="updated-field"]');
         let isShowUser = selectedUsers == null || selectedUsers.length==0 || selectedUsers.includes(trUser.attr('value'));
-        let isShowField = selectedField.length==0 || selectedField.toLowerCase()==trField.attr('value').toLowerCase();
+        let isShowField = selectedField == null || selectedField.length==0 || selectedField.toLowerCase()==trField.attr('value').toLowerCase();
         //AJS.$.inArray(trUser.attr('value'), selectedUsers) >= 0;
         console.log(trUser.attr('value'),trUser, isShowUser);
         console.log(trField.attr('value'),trField, isShowField, selectedField);
@@ -37,6 +41,8 @@ function filterChange(){
 
 function loadHistoryTracker(){
     AJS.$("#issue-tab-panel-user-selector").auiSelect2();
+    AJS.$("#issue-tab-panel-field-selector").val('').auiSelect2();
+
        console.log("auiSelect2 >>>>>>>>>>>>>>>>>>>>");
        AJS.tablessortable.setTableSortable(AJS.$(".aui-table-sortable"));
        console.log("tablessortable >>>>>>>>>>>>>>>>>>>>");
@@ -55,7 +61,7 @@ function loadHistoryTracker(){
        AJS.$("#reset-button").off('click');
        AJS.$("#reset-button").on('click', function() {
            AJS.$('#issue-tab-panel-user-selector').val('').auiSelect2();
-           AJS.$('#issue-tab-panel-field-selector').val('');
+           AJS.$('#issue-tab-panel-field-selector').val('').auiSelect2();
            filterChange();
        });
 }

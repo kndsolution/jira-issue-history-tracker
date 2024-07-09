@@ -1,5 +1,6 @@
 package dev.jira.jira.tabpanels;
 
+import com.atlassian.jira.avatar.AvatarService;
 import com.atlassian.jira.bc.user.search.UserSearchParams;
 import com.atlassian.jira.bc.user.search.UserSearchService;
 import com.atlassian.jira.config.properties.ApplicationProperties;
@@ -49,6 +50,8 @@ public class PaginatedIssueTabCustom implements PaginatedIssueTabPanel {
     private final UserSearchService userSearchService;
     @JiraImport
     private final FieldManager fieldManager;
+    @JiraImport
+    private final AvatarService avatarService;
 
 
     public PaginatedIssueTabCustom(VelocityManager velocityManager
@@ -60,6 +63,7 @@ public class PaginatedIssueTabCustom implements PaginatedIssueTabPanel {
             , UserManager userManager
             , UserSearchService userSearchService
             , FieldManager fieldManager
+            , AvatarService avatarService
     ){
         this.velocityManager = velocityManager;
         this.velocityParamFactory = velocityParamFactory;
@@ -70,6 +74,7 @@ public class PaginatedIssueTabCustom implements PaginatedIssueTabPanel {
         this.userManager = userManager;
         this.userSearchService = userSearchService;
         this.fieldManager = fieldManager;
+        this.avatarService = avatarService;
     }
 
     @Override
@@ -90,8 +95,7 @@ public class PaginatedIssueTabCustom implements PaginatedIssueTabPanel {
         context.put("i18n", this.jiraAuthenticationContext.getI18nHelper());
         JiraRendererPlugin renderer = rendererManager.getRendererForType("atlassian-wiki-renderer");
         List<ChangeHistory> changeHistories = changeHistoryManager.getChangeHistories(request.issue());
-        IssueTabPanelUtil issueTabPanelUtil = new IssueTabPanelUtil(userManager);
-
+        IssueTabPanelUtil issueTabPanelUtil = new IssueTabPanelUtil(userManager, avatarService);
 
         context.put("changeHistoryManager", changeHistoryManager);
         context.put("issueTabPanelUtil", issueTabPanelUtil);
@@ -138,7 +142,7 @@ public class PaginatedIssueTabCustom implements PaginatedIssueTabPanel {
     }
 
     public List<ApplicationUser> findUsers(String search){
-        UserSearchParams userSearchParams = new UserSearchParams.Builder().allowEmptyQuery(true).includeActive(true).includeInactive(true).limitResults(10).build();
+        UserSearchParams userSearchParams = new UserSearchParams.Builder().allowEmptyQuery(true).includeActive(true).includeInactive(true).build();
         List<ApplicationUser> userList = userSearchService.findUsers("", userSearchParams);
         return  userList;
     }
