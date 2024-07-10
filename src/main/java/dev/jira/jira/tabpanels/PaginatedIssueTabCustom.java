@@ -21,10 +21,7 @@ import com.atlassian.velocity.VelocityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static com.atlassian.jira.plugin.issuetabpanel.GetActionsRequest.FetchMode.*;
 
@@ -150,6 +147,34 @@ public class PaginatedIssueTabCustom implements PaginatedIssueTabPanel {
     public Set<SearchableField> findFields(){
         Set<SearchableField> fieldList = this.fieldManager.getAllSearchableFields();
         return  fieldList;
+    }
+
+    public Set<String> getHistoryUsers(List<ChangeHistory> changeHistories){
+        Set<String> historyUsers = new HashSet<>();
+        
+
+        for (ChangeHistory changeHistory:changeHistories){
+            String historyUser = changeHistory.getAuthorKey();
+            log.error(historyUser);
+            historyUsers.add(historyUser);
+        }
+
+        return historyUsers;
+    }
+
+    public Set<String> getHistoryFields(List<ChangeHistory> changeHistories){
+        Set<String> historyFields = new HashSet<>();
+
+
+        for (ChangeHistory changeHistory:changeHistories){
+            List<org.ofbiz.core.entity.GenericValue> histories = changeHistory.getChangeItems();
+            for (org.ofbiz.core.entity.GenericValue historyField:histories){
+                historyFields.add(String.valueOf(historyField.get("field")));
+            }
+
+        }
+
+        return historyFields;
     }
 }
 

@@ -2,35 +2,34 @@
 <div class="mod-header">
     <form class="aui">
 
-        $issueTabPanelUtil.getSearchUserHTML('admin')
-             <aui-label for="issue-tab-panel-user-selector">Search User:</aui-label>
-            <select
-                        id="issue-tab-panel-user-selector"
-                        name="product"
-                        src="products"
-                        value="type to trigger async"
-            multiple>
-            #foreach ($user in $this.findUsers(''))
-                <option value="$user.getKey()">$issueTabPanelUtil.getSearchUserHTML($user.getKey())</option>
-            #end
-            </select>
-            <br />
-            <aui-label for="issue-tab-panel-field-selector">Search Field:</aui-label>
-            <select
-                        id="issue-tab-panel-field-selector"
-                        name="product"
-                        src="products"
-                        value="type to trigger async"
-            >
-            #foreach ($field in $this.findFields())
-                <option value="$field.getName()">$field.getName()</option>
-            #end
-            </select>
-            <br />
-            <br />
-            <a class="aui-button"  id="reset-button">Reset</a>
-            <br />
-            <hr />
+        <aui-label for="issue-tab-panel-user-selector">Search User:</aui-label>
+        <select
+                    id="issue-tab-panel-user-selector"
+                    name="product"
+                    src="products"
+                    value="type to trigger async"
+        multiple>
+        #foreach ($historyUserKey in $this.getHistoryUsers($changeHistories))
+            <option value="$historyUserKey">$issueTabPanelUtil.getSearchUserHTML($historyUserKey)</option>
+        #end
+        </select>
+        <br />
+        <aui-label for="issue-tab-panel-field-selector">Search Field:</aui-label>
+        <select
+                    id="issue-tab-panel-field-selector"
+                    name="product"
+                    src="products"
+                    value="type to trigger async"
+        >
+        #foreach ($historyField in $this.getHistoryFields($changeHistories))
+            <option value="$historyField">$historyField</option>
+        #end
+        </select>
+        <br />
+        <br />
+        <a class="aui-button"  id="reset-button">Reset</a>
+        <br />
+        <hr />
     </form>
     <table class="aui aui-table-sortable" id="issue-tab-panel-result-table">
         <thead>
