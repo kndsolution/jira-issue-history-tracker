@@ -10,8 +10,10 @@ JIRA.ViewIssueTabs.onTabReady(function() {
     loadHistoryTracker();
 })
 
-function format (){
-    return
+function format(el) {
+    let avatarId = jQuery('#issue-tab-panel-user-selector option[value="'+el.id+'"]').attr('avatarId');
+    console.log(">>>", avatarId);
+    return "<span class='user-hover user-hover-replaced'>"+"<span class=\"aui-avatar aui-avatar-small\"><span class=\"aui-avatar-inner\"><img class=\"aui-ss-entity-icon rounded\" src='"+AJS.contextPath()+"/secure/useravatar?size=small&ownerId="+el.id+"&avatarId="+avatarId+"'></span></span>  "+el.text+"</span>";
 }
 
 function filterChange(){
@@ -40,7 +42,8 @@ function filterChange(){
 }
 
 function loadHistoryTracker(){
-    AJS.$("#issue-tab-panel-user-selector").auiSelect2();
+    AJS.$("#issue-tab-panel-user-selector").auiSelect2({formatResult: format,
+                                                       formatSelection: format});
     AJS.$("#issue-tab-panel-field-selector").val('').auiSelect2();
 
        console.log("auiSelect2 >>>>>>>>>>>>>>>>>>>>");

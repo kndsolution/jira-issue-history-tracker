@@ -46,6 +46,14 @@ public class IssueTabPanelUtil {
         return "<p>"+imgURL+user.getDisplayName()+" - "+user.getEmailAddress()+"</p>";
     }
 
+    public String getSearchUserAvatarId(String userKey){
+        ApplicationUser user = userManager.getUserByKey(userKey);
+
+        Avatar avatar = getUserAvatar(userKey);
+        String avatarId = String.valueOf(avatar.getId());
+        return avatarId;
+    }
+
     public Avatar getUserAvatar(String userKey){
         ApplicationUser user = userManager.getUserByKey(userKey);
 

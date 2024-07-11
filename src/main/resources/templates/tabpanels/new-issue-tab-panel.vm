@@ -10,7 +10,7 @@
                     value="type to trigger async"
         multiple>
         #foreach ($historyUserKey in $this.getHistoryUsers($changeHistories))
-            <option value="$historyUserKey">$issueTabPanelUtil.getSearchUserHTML($historyUserKey)</option>
+            <option value="$historyUserKey" avatarId="$issueTabPanelUtil.getSearchUserAvatarId($historyUserKey)">$issueTabPanelUtil.getSearchUserHTML($historyUserKey)</option>
         #end
         </select>
         <br />

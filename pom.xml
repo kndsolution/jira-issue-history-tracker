@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>dev.jira</groupId>
     <artifactId>issue-history-tracker</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1</version>
     <organization>
-        <name>Example Company</name>
-        <url>http://www.example.com/</url>
+        <name>KndSolution.co</name>
+        <url>http://kndsolution.co.kr/</url>
     </organization>
     <name>Issue-History-Tracker</name>
-    <description>This is the dev.jira:Issue-History-Tracker plugin for Atlassian JIRA.</description>
+    <description>This is the Issue-History-Tracker plugin for Atlassian JIRA.</description>
     <packaging>atlassian-plugin</packaging>
     <dependencies>
         <dependency>
