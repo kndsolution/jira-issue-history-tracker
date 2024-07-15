@@ -6,8 +6,11 @@
     <version>${project.version}</version>  
     <vendor name="${project.organization.name}" url="${project.organization.url}"/>  
     <param name="plugin-icon">images/pluginIcon.png</param>  
-    <param name="plugin-logo">images/pluginLogo.png</param>  
-    <param name="configure.url">/admin/plugins/gmaps/configurePlugin.action</param> 
+    <param name="plugin-logo">images/pluginIcon.png</param>
+    <param name="plugin-type">data-center</param>
+    <param name="atlassian-data-center-status">compatible</param>
+    <param name="atlassian-data-center-compatible">true</param>
+<!--    <param name="configure.url">/admin/plugins/gmaps/configurePlugin.action</param> -->
   </plugin-info>  
   <!-- add our i18n resource -->  
   <resource type="i18n" name="i18n" location="react-base"/>  
@@ -32,10 +35,10 @@
     <description key="myadmin_config_section.description">The myadmin_config_section Plugin</description>  
     <label key="myadmin_config_section.label"/> 
   </web-section>  
-  <web-item key="myadmin_config_link" section="admin_plugins_menu/myadmin_config_section"> 
-    <label key="myadmin_config_link.label"/>  
-    <link linkId="myadmin_config_link.link" key="myadmin_config_link.description">/my/adminconfig</link> 
-  </web-item>  
+<!--  <web-item key="myadmin_config_link" section="admin_plugins_menu/myadmin_config_section"> -->
+<!--    <label key="myadmin_config_link.label"/>  -->
+<!--    <link linkId="myadmin_config_link.link" key="myadmin_config_link.description">/my/adminconfig</link> -->
+<!--  </web-item>  -->
   <webwork1 key="myadmin_config_action" name="myadmin_config_action" i18n-name-key="myadmin_config_action.name" class="java.lang.Object" roles-required="use"> 
     <description key="myadmin_config_action.description">Admin Config</description>  
     <actions> 
