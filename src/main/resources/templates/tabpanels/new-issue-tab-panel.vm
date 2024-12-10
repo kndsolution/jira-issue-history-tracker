@@ -31,7 +31,7 @@
         <br />
         <hr />
     </form>
-    <table class="aui aui-table-sortable" id="issue-tab-panel-result-table">
+    <table class="aui" id="issue-tab-panel-result-table">
         <thead>
             <tr>
                 <th id="updated-date">Updated Date</th>
@@ -61,3 +61,5 @@
 <script type="text/javascript">
 
 </script>
+
+$webResourceManager.requireResourcesForContext("issue-history-tracker-plugin-context")

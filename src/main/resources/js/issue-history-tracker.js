@@ -47,7 +47,9 @@ function loadHistoryTracker(){
     AJS.$("#issue-tab-panel-field-selector").val('').auiSelect2();
 
        console.log("auiSelect2 >>>>>>>>>>>>>>>>>>>>");
-       AJS.tablessortable.setTableSortable(AJS.$(".aui-table-sortable"));
+       AJS.$("#issue-tab-panel-result-table").removeClass("aui-table-sortable");
+       AJS.$("#issue-tab-panel-result-table").addClass("aui-table-sortable");
+       AJS.tablessortable.setTableSortable(AJS.$("#issue-tab-panel-result-table"));
        console.log("tablessortable >>>>>>>>>>>>>>>>>>>>");
 
        AJS.$('#issue-tab-panel-user-selector').off('change');
