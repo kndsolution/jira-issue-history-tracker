@@ -1,0 +1,65 @@
+
+<div class="mod-header">
+    <form class="aui">
+
+        <aui-label for="issue-tab-panel-user-selector">Search User:</aui-label>
+        <select
+                    id="issue-tab-panel-user-selector"
+                    name="product"
+                    src="products"
+                    value="type to trigger async"
+        multiple>
+        #foreach ($historyUserKey in $this.getHistoryUsers($changeHistories))
+            <option value="$historyUserKey" avatarId="$issueTabPanelUtil.getSearchUserAvatarId($historyUserKey)">$issueTabPanelUtil.getSearchUserHTML($historyUserKey)</option>
+        #end
+        </select>
+        <br />
+        <aui-label for="issue-tab-panel-field-selector">Search Field:</aui-label>
+        <select
+                    id="issue-tab-panel-field-selector"
+                    name="product"
+                    src="products"
+                    value="type to trigger async"
+        >
+        #foreach ($historyField in $this.getHistoryFields($changeHistories))
+            <option value="$historyField">$historyField</option>
+        #end
+        </select>
+        <br />
+        <br />
+        <a class="aui-button"  id="reset-button">Reset</a>
+        <br />
+        <hr />
+    </form>
+    <table class="aui" id="issue-tab-panel-result-table">
+        <thead>
+            <tr>
+                <th id="updated-date">Updated Date</th>
+                <th id="updated-user">User</th>
+                <th id="element">Field</th>
+                <th  class="aui-table-column-unsortable" id="before">Before</th>
+                <th  class="aui-table-column-unsortable" id="after">After</th>
+            </tr>
+        </thead>
+        <tbody>
+            #foreach ($changeHistory in $changeHistories)
+                #set($historyItems = $changeHistory.getChangeItems())
+                #foreach ($historyItem in $historyItems)
+                <tr>
+                    <td headers="updated-date"><time datetime="$issueTabPanelUtil.convertDate($changeHistory.getTimePerformed())">$issueTabPanelUtil.convertDate($changeHistory.getTimePerformed())</td>
+                    <td headers="updated-user" value="$changeHistory.getAuthorKey()">$renderer.render("[~$issueTabPanelUtil.getUserWikiRender($changeHistory.getAuthorKey())]", null)</td>
+                    <td headers="updated-field" value="$historyItem.get("field")">$historyItem.get("field")</td>
+                    <td headers="before" value=$!historyItem.get("oldvalue") >$!historyItem.get("oldstring")</td>
+                    <td headers="after" value=$!historyItem.get("newvalue")>$!historyItem.get("newstring")</td>
+                </tr>
+                #end
+            #end
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+</script>
+
+$webResourceManager.requireResourcesForContext("issue-history-tracker-plugin-context")

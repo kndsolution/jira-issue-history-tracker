@@ -6,40 +6,81 @@
     <version>${project.version}</version>  
     <vendor name="${project.organization.name}" url="${project.organization.url}"/>  
     <param name="plugin-icon">images/pluginIcon.png</param>  
-    <param name="plugin-logo">images/pluginLogo.png</param>  
-    <param name="configure.url">/admin/plugins/gmaps/configurePlugin.action</param> 
+    <param name="plugin-logo">images/pluginIcon.png</param>
+    <param name="plugin-type">data-center</param>
+    <param name="atlassian-data-center-status">compatible</param>
+    <param name="atlassian-data-center-compatible">true</param>
+<!--    <param name="configure.url">/admin/plugins/gmaps/configurePlugin.action</param> -->
   </plugin-info>  
   <!-- add our i18n resource -->  
   <resource type="i18n" name="i18n" location="react-base"/>  
   <!-- add our web resources -->  
   <web-resource key="react-base-resources" name="react-base Web Resources"> 
-    <dependency>com.atlassian.auiplugin:ajs</dependency>  
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="react-base.css" location="/css/react-base.css"/>  
     <resource type="download" name="react-base.js" location="/js/react-base.js"/>  
     <resource type="download" name="images/" location="/images"/>  
     <context>react-base</context> 
-  </web-resource>  
-
-  <web-section name="myadmin_config_section" i18n-name-key="myadmin_config_section.name" key="myadmin_config_section" location="admin_plugins_menu" weight="1000"> 
-    <description key="myadmin_config_section.description">The myadmin_config_section Plugin</description>  
-    <label key="myadmin_config_section.label"/> 
-  </web-section>  
-  <web-item key="myadmin_config_link" section="admin_plugins_menu/myadmin_config_section"> 
-    <label key="myadmin_config_link.label"/>  
-    <link linkId="myadmin_config_link.link" key="myadmin_config_link.description">/my/adminconfig</link> 
-  </web-item>  
-  <webwork1 key="myadmin_config_action" name="myadmin_config_action" i18n-name-key="myadmin_config_action.name" class="java.lang.Object" roles-required="use"> 
-    <description key="myadmin_config_action.description">Admin Config</description>  
-    <actions> 
-      <action name="dev.jira.jira.webwork.AdminConfigAction" alias="AdminConfigAction" roles-required="sysadmin"> 
-        <view name="success">/templates/adminConfig/success.vm</view>  
-        <view name="input">/templates/adminConfig/input.vm</view>  
-        <view name="error">/templates/adminConfig/error.vm</view> 
-      </action> 
-    </actions> 
-  </webwork1>  
+  </web-resource>
+  <web-resource key="test-resources" name="react-base Web Resources">
+    <resource type="download" name="react-base.css" location="/css/react-base.css"/>
+<!--    <resource type="download" name="issue-history-tracker.js" location="js/issue-history-tracker.js"/>-->
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <dependency>com.atlassian.auiplugin:aui-table-sortable</dependency>
+    <dependency>com.atlassian.auiplugin:aui-select</dependency>
+    <dependency>com.atlassian.auiplugin:aui-select2</dependency>
+<!--    <context>atl.general</context>-->
+  </web-resource>
+<!--  <web-section name="myadmin_config_section" i18n-name-key="myadmin_config_section.name" key="myadmin_config_section" location="admin_plugins_menu" weight="1000"> -->
+<!--    <description key="myadmin_config_section.description">The myadmin_config_section Plugin</description>  -->
+<!--    <label key="myadmin_config_section.label"/> -->
+<!--  </web-section>  -->
+<!--  <web-item key="myadmin_config_link" section="admin_plugins_menu/myadmin_config_section">-->
+<!--    <label key="myadmin_config_link.label"/>-->
+<!--    <link linkId="myadmin_config_link.link" key="myadmin_config_link.description">/my/adminconfig</link>-->
+<!--  </web-item>-->
+<!--  <webwork1 key="myadmin_config_action" name="myadmin_config_action" i18n-name-key="myadmin_config_action.name" class="java.lang.Object" roles-required="use"> -->
+<!--    <description key="myadmin_config_action.description">Admin Config</description>  -->
+<!--    <actions> -->
+<!--      <action name="dev.jira.jira.webwork.AdminConfigAction" alias="AdminConfigAction" roles-required="sysadmin"> -->
+<!--        <view name="success">/templates/adminConfig/success.vm</view>  -->
+<!--        <view name="input">/templates/adminConfig/input.vm</view>  -->
+<!--        <view name="error">/templates/adminConfig/error.vm</view> -->
+<!--      </action> -->
+<!--    </actions> -->
+<!--  </webwork1>  -->
   <servlet name="Admin Config Servlet" i18n-name-key="admin-config-servlet.name" key="admin-config-servlet" class="dev.jira.servlet.AdminConfigServlet"> 
     <description key="admin-config-servlet.description">The Admin Config Servlet Plugin</description>  
     <url-pattern>/my/adminconfig</url-pattern> 
-  </servlet>
+  </servlet>  
+<!--  <issue-tabpanel key="new-issue-tab-panel" name="Issue History Tracker" i18n-name-key="new-issue-tab-panel.name" class="dev.jira.jira.tabpanels.NewIssueTabPanel">-->
+<!--    <description key="new-issue-tab-panel.description">The New Issue Tab Panel Plugin</description>  -->
+<!--    <label key="new-issue-tab-panel.label"></label>  -->
+<!--    <order>1000</order>-->
+<!--    <dependency>com.atlassian.auiplugin:ajs</dependency>-->
+<!--    <dependency>com.atlassian.auiplugin:aui-table</dependency>-->
+<!--    <supports-ajax-load>true</supports-ajax-load>-->
+<!--&lt;!&ndash;    <resource type="velocity" name="view" location="templates/tabpanels/new-issue-tab-panel.vm"/>&ndash;&gt;-->
+<!--  </issue-tabpanel>-->
+  <issue-tabpanel key="issue-history-tracker" name="Issue History Tracker"
+                  class="dev.jira.jira.tabpanels.PaginatedIssueTabCustom">
+
+    <description>Show a custom panel.</description>
+    <label>Issue History Tracker</label>
+    <supports-ajax-load>true</supports-ajax-load>
+
+    <show-newer-expander-label>Load newer custom events</show-newer-expander-label>
+    <show-older-expander-label>Load older custom events</show-older-expander-label>
+    <show-all-newer-expander-label>load all newer custom events</show-all-newer-expander-label>
+    <show-all-older-expander-label>load all older custom events</show-all-older-expander-label>
+  </issue-tabpanel>
+  <web-resource key="myPluginViewIssue" name="MyPlugin's JS">
+    <context>jira.view.issue</context>
+    <dependency>jira.webresources:viewissue</dependency>
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <dependency>com.atlassian.auiplugin:aui-table-sortable</dependency>
+    <dependency>com.atlassian.auiplugin:aui-select</dependency>
+    <dependency>com.atlassian.auiplugin:aui-select2</dependency>
+    <resource type="download" name="issue-history-tracker.js" location="js/issue-history-tracker.js"/>
+  </web-resource>
 </atlassian-plugin>
